@@ -13,15 +13,23 @@ switch (comando) {
 
         break;
     case 'listar':
-        console.log('Mostrar todas las tareas por hacer');
-        let listadoPorHacer = porHacer.getListado();
+        if (argv.completado) {
+            console.log(`Mostrar todas las tareas * Estado completado: ${argv.completado}`);
+            let listadoPorHacer = porHacer.getListadoPorEstado(argv.completado);
+            console.log(listadoPorHacer);
 
 
-        for (let tarea of listadoPorHacer) {
-            console.log('===========Por Hacer==========='.green);
-            console.log(tarea.descripcion);
-            console.log('Estado: ', tarea.completado);
-            console.log('=============================='.green);
+        } else {
+            console.log('Mostrar todas las tareas por hacer');
+            let listadoPorHacer = porHacer.getListado();
+
+
+            for (let tarea of listadoPorHacer) {
+                console.log('===========Por Hacer==========='.green);
+                console.log(tarea.descripcion);
+                console.log('Estado: ', tarea.completado);
+                console.log('=============================='.green);
+            }
         }
         break;
     case 'actualizar':

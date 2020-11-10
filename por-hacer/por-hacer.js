@@ -17,9 +17,6 @@ const cargarDB = () => {
     } catch (e) {
         listadoPorHacer = [];
     }
-
-    console.log(listadoPorHacer);
-
 }
 
 const crear = (descripcion) => {
@@ -39,6 +36,15 @@ const crear = (descripcion) => {
 const getListado = () => {
     cargarDB();
     return listadoPorHacer;
+}
+
+const getListadoPorEstado = (completado) => {
+    cargarDB();
+    //Buscar coincidencia con la descripcion
+    let nuevoListado = listadoPorHacer.filter(tarea => {
+        return tarea.completado === parseBoolean(completado);
+    });
+    return nuevoListado;
 }
 
 const actualizar = (descripcion, completado = true) => {
@@ -84,9 +90,12 @@ const parseBoolean = (entrada) => {
 
 }
 
+
+
 module.exports = {
     crear,
     getListado,
     actualizar,
-    borrar
+    borrar,
+    getListadoPorEstado
 }
